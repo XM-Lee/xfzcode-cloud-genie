@@ -23,15 +23,15 @@ public enum ResultCode implements IErrorCode {
     AUTHORIZATION_HEADER_IS_EMPTY(600,"请求头中的token为空"),
     FORBIDDEN(403, "没有相关权限");
 
-    private long code;
+    private Integer code;
     private String message;
 
-    private ResultCode(long code, String message) {
+    private ResultCode(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    public long getCode() {
+    public Integer getCode() {
         return code;
     }
 
