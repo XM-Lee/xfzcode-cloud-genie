@@ -36,6 +36,18 @@ public class HttpResult<T> implements Serializable {
         return new HttpResult<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
     }
 
+    public static <T> HttpResult<T> success(String message) {
+        return new HttpResult<T>(ResultCode.SUCCESS.getCode(), message, null);
+    }
+
+    public static <T> HttpResult<T> success(String message,T data) {
+        return new HttpResult<T>(ResultCode.SUCCESS.getCode(), message, data);
+    }
+
+    public static <T> HttpResult<T> success() {
+        return new HttpResult<T>(ResultCode.SUCCESS.getCode(),  ResultCode.SUCCESS.getMessage(), null);
+    }
+
     /**
      * 成功返回结果
      *
@@ -96,6 +108,7 @@ public class HttpResult<T> implements Serializable {
     public static <T> HttpResult<T> failed() {
         return failed(ResultCode.FAILED);
     }
+
 
     /**
      * 参数验证失败返回结果

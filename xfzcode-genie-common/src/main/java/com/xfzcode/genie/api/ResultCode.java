@@ -9,8 +9,14 @@ public enum ResultCode implements IErrorCode {
     /*============================成功=======================*/
     SUCCESS(200, "操作成功"),
     /*============================失败=======================*/
-    FAILED(500, "操作失败"),
+    FAILED(400, "操作失败"),
+    SAVE_FAILED(400, "保存失败"),
+    DELETE_FAILED(400, "删除失败"),
+
     ACCEPTED(202, "操作进行中"),
+
+
+
     VALIDATE_FAILED(404, "参数检验失败"),
     UNAUTHORIZED(401, "暂未登录或token已经过期"),
     GET_TOKEN_KEY_ERROR(601,"远程获取TokenKey异常"),
