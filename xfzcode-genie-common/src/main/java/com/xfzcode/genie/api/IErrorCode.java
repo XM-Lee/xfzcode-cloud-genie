@@ -6,7 +6,7 @@ package com.xfzcode.genie.api;
  * @Description: 封装API的错误码
  */
 public interface IErrorCode {
-    long getCode();
+    Integer getCode();
 
     String getMessage();
 }
