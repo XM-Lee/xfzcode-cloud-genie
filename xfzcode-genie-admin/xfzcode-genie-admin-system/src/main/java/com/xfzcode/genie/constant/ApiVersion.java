@@ -10,4 +10,5 @@ public class ApiVersion {
     public static final String V1_USER = V1 + "/user";
     public static final String V1_PERMISSION = "permission";
     public static final String V1_ROLE = "/role";
+    public static final String V1_LOGIN = "/login";
 }
