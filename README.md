@@ -10,7 +10,7 @@
   - 核心配置服务，以Jar的形式对外提供服务
 - xfzcode-genie-gateway
   - 网关模块-控制api走向
-- xfzcode-genie-unid
+- xfzcode-genie-unnId
   - 生成分布式Id
 - xfzcode-genie-server
   - xfzcode-genie-server-xxx
@@ -26,6 +26,7 @@
 │  ├─xfzcode-genie-admin                            系统后台管理父
 │  │  ├─xfzcode-genie-admin-system                  后台管理启动项目(8080）
 │  │  ├─xfzcode-genie-admin-online                  后台管理低代码生成服务
+│  ├─xfzcode-genie-unnId                            分布式ID控制
 │  ├─xfzcode-genie-server                           对外微服务父
      ├─xfzcode-genie-server-xxx                     微服务网关模块(9999)
 ```
