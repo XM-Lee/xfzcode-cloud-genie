@@ -1,5 +1,6 @@
 package com.xfzcode.genie.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xfzcode.genie.api.HttpResult;
 import com.xfzcode.genie.constant.ApiVersion;
 import com.xfzcode.genie.entity.Permission;
@@ -22,7 +23,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Api(value = "01. Permission 权限管理",tags = "权限管理相关接口-PermissionController")
 public class PermissionController {
-
 
 
     @Autowired
@@ -52,6 +52,14 @@ public class PermissionController {
     @ApiOperation(value = "编辑权限", notes = "编辑权限")
     public HttpResult<?> detail(@PathVariable String id) {
         return HttpResult.success(permissionService.getById(id));
+    }
+    @GetMapping("/checkPermDuplication")
+    @ApiOperation(value = "查询权限关键数据是否有重复", notes = "查询权限关键数据是否有重复")
+    public HttpResult<?> checkPermDuplication(@RequestParam String name) {
+        if (permissionService.list(new QueryWrapper<Permission>().eq("name", name)).size() > 0) {
+            return HttpResult.failed();
+        }
+        return HttpResult.success();
     }
 
 
