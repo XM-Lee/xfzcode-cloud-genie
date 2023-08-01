@@ -80,6 +80,6 @@ public class Permission extends BaseEntity implements Serializable {
     /**
      * 是否叶子节点:1是 0否
      */
-    private String isLeaf;
+    private Integer isLeaf;
 
 }

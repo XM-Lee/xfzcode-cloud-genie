@@ -43,8 +43,11 @@
 
         <jackson-version>2.13.3</jackson-version>
         <fastjson-version>2.0.32</fastjson-version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
+
         <xfzcode-genie-common.version>${project.version}</xfzcode-genie-common.version>
         <xfzcode-genie-base-core.version>${project.version}</xfzcode-genie-base-core.version>
+
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -152,6 +155,13 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson-version}</version>
+            </dependency>
+
+            <!--工具-->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
