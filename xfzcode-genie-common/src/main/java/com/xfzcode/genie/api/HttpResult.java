@@ -109,6 +109,17 @@ public class HttpResult<T> implements Serializable {
         return failed(ResultCode.FAILED);
     }
 
+    /**
+     * 错误返回结果
+     */
+    public static <T> HttpResult<T> error(T data) {
+        return error(ResultCode.ERROR,data);
+    }
+
+    public static <T> HttpResult<T> error(IErrorCode errorCode,T data) {
+        return new HttpResult<T>(errorCode.getCode(), errorCode.getMessage(), data);
+    }
+
 
     /**
      * 参数验证失败返回结果

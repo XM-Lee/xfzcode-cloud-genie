@@ -10,7 +10,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 
-@TableName("sys_role")
+@TableName("sys_roles")
 @Getter
 @Setter
 @AllArgsConstructor

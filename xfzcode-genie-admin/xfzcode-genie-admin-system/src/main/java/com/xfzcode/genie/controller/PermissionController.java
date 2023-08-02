@@ -91,10 +91,9 @@ public class PermissionController {
                 }).collect(Collectors.toList());
 
 
-                //todo 修改为倒叙
                 List<PermissionTree> trees = treeList.stream().filter(permissionTree -> 0 == permissionTree.getParentId())
                         .peek(permissionTree -> permissionTree.setChildren(createChildList(permissionTree, treeList)))
-                        .sorted(Comparator.comparing(PermissionTree::getSortNo))
+                        .sorted(Comparator.comparing(PermissionTree::getSortNo).reversed())
                         .collect(Collectors.toList());
 
                 log.info("======获取全部菜单数据=====耗时:" + (System.currentTimeMillis() - start) + "毫秒");
@@ -107,11 +106,10 @@ public class PermissionController {
         }
     }
 
-    //todo 修改为倒叙
     private static List<PermissionTree> createChildList(PermissionTree permissionTreeVo, List<PermissionTree> permissionTreeVoList) {
         return permissionTreeVoList.stream().filter(model -> permissionTreeVo.getId().equals(model.getParentId()))
                 .peek(model -> model.setChildren(createChildList(model, permissionTreeVoList)))
-                .sorted((Comparator.comparing(PermissionTree::getSortNo))).collect(Collectors.toList());
+                .sorted((Comparator.comparing(PermissionTree::getSortNo).reversed())).collect(Collectors.toList());
     }
 
 }
