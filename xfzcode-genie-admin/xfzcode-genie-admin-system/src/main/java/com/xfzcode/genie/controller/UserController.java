@@ -41,7 +41,7 @@ import static com.xfzcode.genie.api.ResultCode.*;
 @RequestMapping(ApiVersion.V1_USER)
 //@RolesAllowed(Roles.USER_ADMIN)
 @Slf4j
-@Api(value = "01. User 用户管理",tags = "用户管理相关接口-UserController")
+@Api(value = "User 用户管理",tags = "1-01.用户管理相关接口-UserController")
 public class UserController {
 
 
@@ -201,5 +201,7 @@ public class UserController {
     public Result<?> changePassword(@RequestBody SysUser sysUser) {
 
     }*/
+
+    //TODO 授权相关的角色给用户
 
 }

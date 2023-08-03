@@ -17,7 +17,7 @@ public class HttpResult<T> implements Serializable {
     private String message;
     private T data;
 
-    public HttpResult() {
+    private HttpResult() {
 
     }
 

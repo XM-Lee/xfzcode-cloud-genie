@@ -13,13 +13,13 @@ public enum ResultCode implements IErrorCode {
     SAVE_FAILED(400, "保存失败"),
     UPDATE_FAILED(400, "编辑失败"),
     DELETE_FAILED(400, "删除失败"),
+    ROLE_IS_EXIST(14001, "角色编码已存在"),
+    PERMISSION_IS_EXIST(14001, "权限路径已存在"),
 
     ACCEPTED(202, "操作进行中"),
 
     /*============================失败=======================*/
     ERROR(1500, "系统错误"),
-
-
 
     VALIDATE_FAILED(404, "参数检验失败"),
     UNAUTHORIZED(401, "暂未登录或token已经过期"),
@@ -29,6 +29,8 @@ public enum ResultCode implements IErrorCode {
     TOMANY_REQUEST_ERROR(429,"后端服务触发流控"),
     BACKGROUD_DEGRADE_ERROR(604,"后端服务触发降级"),
     BAD_GATEWAY(502,"网关服务异常"),
+
+
     /*============================权限不足=======================*/
     AUTHORIZATION_HEADER_IS_EMPTY(600,"请求头中的token为空"),
     FORBIDDEN(403, "没有相关权限");

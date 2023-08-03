@@ -7,9 +7,12 @@ import com.xfzcode.genie.api.ResultCode;
 import com.xfzcode.genie.constant.ApiVersion;
 import com.xfzcode.genie.constant.CommonConstant;
 import com.xfzcode.genie.entity.Permission;
+import com.xfzcode.genie.entity.Role;
 import com.xfzcode.genie.service.PermissionService;
 import com.xfzcode.genie.vo.PermissionTree;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import kotlin.Result;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +36,7 @@ import java.util.stream.Collectors;
 @RequestMapping(ApiVersion.V1_PERMISSION)
 @RequiredArgsConstructor
 @Slf4j
-@Api(value = "01. Permission 权限管理",tags = "权限管理相关接口-PermissionController")
+@Api(value = "Permission 权限管理",tags = "1-03.权限管理相关接口-PermissionController")
 public class PermissionController {
 
 
@@ -42,36 +45,72 @@ public class PermissionController {
 
 
     @PostMapping()
-    @ApiOperation(value = "新增权限", notes = "新增权限")
+    @ApiOperation("【新增权限】")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Permission", value = "权限")
+    })
     public HttpResult<?> addPermission(@RequestBody Permission permission) {
-        //TODO 需要校验某些字段唯一性
-        return HttpResult.success(permissionService.save(permission));
+        try {
+            if (permissionService.count(new QueryWrapper<Permission>().eq("url", permission.getUrl())) > 0) {
+                return HttpResult.failed(ResultCode.PERMISSION_IS_EXIST);
+            }
+            if (permissionService.save(permission)) {
+                return HttpResult.success();
+            }
+            return HttpResult.failed(ResultCode.DELETE_FAILED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return HttpResult.error(e);
+        }
     }
 
     @DeleteMapping
-    @ApiOperation(value = "删除权限", notes = "删除权限")
+    @ApiOperation("【删除权限】")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Role", value = "角色")
+    })
     public HttpResult<?> deletePermission(@RequestBody List<Long> ids) {
-        //TODO 需要校验该权限是否被使用着或级联删除
-        return HttpResult.success(permissionService.removeBatchByIds(ids));
+        try {
+            if (permissionService.removePermissionByIds(ids)) {
+                return HttpResult.success();
+            }
+            return HttpResult.failed(ResultCode.DELETE_FAILED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return HttpResult.error(e);
+        }
     }
 
     @PutMapping
-    @ApiOperation(value = "编辑权限", notes = "编辑权限")
+    @ApiOperation("【编辑权限】")
     public HttpResult<?> updatePermission(@RequestBody Permission permission) {
-        //TODO 需要校验某些字段唯一性
-        return HttpResult.success(permissionService.updateById(permission));
+        try {
+            if (permissionService.count(new QueryWrapper<Permission>().eq("url", permission.getUrl())) > 0) {
+                return HttpResult.failed(ResultCode.PERMISSION_IS_EXIST);
+            }
+            return HttpResult.success(permissionService.updateById(permission));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return HttpResult.error(e);
+        }
     }
 
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "权限详情", notes = "权限详情")
+    @ApiOperation("【权限详情】")
     public HttpResult<?> detail(@PathVariable String id) {
-        return HttpResult.success(permissionService.getById(id));
+        try {
+            return HttpResult.success(permissionService.getById(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return HttpResult.error(e);
+        }
     }
 
 
 
     @GetMapping("/list")
+    @ApiOperation("【权限列表】")
     public HttpResult<?> list(@RequestParam(required = false) String permissionName) {
         long start = System.currentTimeMillis();
         try {
@@ -101,10 +140,12 @@ public class PermissionController {
             }
             return HttpResult.success();
         } catch (Exception e) {
+            e.printStackTrace();
             log.error(e.getMessage(), e);
             return HttpResult.failed(ResultCode.FAILED);
         }
     }
+
 
     private static List<PermissionTree> createChildList(PermissionTree permissionTreeVo, List<PermissionTree> permissionTreeVoList) {
         return permissionTreeVoList.stream().filter(model -> permissionTreeVo.getId().equals(model.getParentId()))
