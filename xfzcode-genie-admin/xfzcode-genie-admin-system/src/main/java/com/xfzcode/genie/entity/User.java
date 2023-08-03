@@ -25,7 +25,7 @@ public class User extends BaseEntity implements Serializable {
      * 登录账号
      */
     @ApiModelProperty(value = "账号")
-    private String account;
+    private String userName;
 
     @JsonIgnore
     @ApiModelProperty(value = "密码")
@@ -38,11 +38,11 @@ public class User extends BaseEntity implements Serializable {
     private Date credentialExpireDate = DateTimeUtils.getMaxDate();
 
     @Builder.Default
-    @JSONField(serialize = false)
+    @JSONField(serialize = true)
     private boolean accountNonLocked = true;
 
     @Builder.Default
-    @JSONField(serialize = false)
+    @JSONField(serialize = true)
     @ApiModelProperty(value = "启用状态")
     private boolean enabled = true;
     @ApiModelProperty(value = "手机号")
