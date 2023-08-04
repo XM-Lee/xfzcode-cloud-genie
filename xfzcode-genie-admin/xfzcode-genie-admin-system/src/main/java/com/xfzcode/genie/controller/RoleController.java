@@ -6,7 +6,9 @@ import com.xfzcode.genie.api.HttpResult;
 import com.xfzcode.genie.api.ResultCode;
 import com.xfzcode.genie.constant.ApiVersion;
 import com.xfzcode.genie.entity.Role;
+import com.xfzcode.genie.service.RolePermissionService;
 import com.xfzcode.genie.service.RoleService;
+import com.xfzcode.genie.vo.RolePermissionVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -31,6 +33,10 @@ public class RoleController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private RolePermissionService rolePermissionService;
+
 
     @PostMapping
     @ApiOperation("【新增角色】")
@@ -131,6 +137,19 @@ public class RoleController {
         }
     }
 
-    //TODO 授权相关的菜单给角色
+
+    @PostMapping("/saveRolePermission")
+    @ApiOperation("【授权相关的菜单给角色】")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "authority", value = "角色名称",dataType = "string")
+    })
+    public HttpResult<?> saveRolePermission(@RequestBody RolePermissionVo rolePermissionVo) {
+        try{
+            return rolePermissionService.saveRolePermission(rolePermissionVo);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return HttpResult.error(e);
+        }
+    }
 
 }
