@@ -1,4 +1,4 @@
-package com.xfzcode.genie.entity;
+package com.xfzcode.genie.vo;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -13,6 +13,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,7 +22,7 @@ import java.util.Date;
 @TableName("sys_users")
 @SuperBuilder
 @ApiModel(value="用户对象",description="用户相关")
-public class User extends BaseEntity implements Serializable {
+public class UserVo extends BaseEntity implements Serializable {
 
     /**
      * 登录账号
@@ -51,4 +52,8 @@ public class User extends BaseEntity implements Serializable {
     private String phone;
     @ApiModelProperty(value = "姓名")
     private String realName;
+    @ApiModelProperty(value = "头像")
+    private String avatar;
+    @ApiModelProperty(value = "角色")
+    private List<Long> roleIds;
 }

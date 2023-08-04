@@ -17,7 +17,10 @@ import com.xfzcode.genie.constant.CommonConstant;
 import com.xfzcode.genie.dto.UserInfoParam;
 import com.xfzcode.genie.entity.User;
 import com.xfzcode.genie.service.UserService;
+import com.xfzcode.genie.vo.UserVo;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import kotlin.Result;
@@ -55,8 +58,12 @@ public class UserController {
      * @param pageSize
      * @return
      */
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public HttpResult<?> queryPageList(User user, @RequestParam(name="pageNo", defaultValue="1") Integer currentPage,
+    @GetMapping
+    @ApiOperation("【获取用户列表】")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Permission", value = "权限")
+    })
+    public HttpResult<?> queryPageList(User user, @RequestParam(name="currentPage", defaultValue="1") Integer currentPage,
                                                 @RequestParam(name="pageSize", defaultValue="10") Integer pageSize) {
         try {
 
@@ -79,12 +86,13 @@ public class UserController {
     }
 
     @PostMapping
-    public HttpResult<?> add(@RequestBody User user) {
+    @ApiOperation("【添加用户】")
+    public HttpResult<?> add(@RequestBody UserVo user) {
         try {
             String password = user.getPassword();
             user.setPassword(password+"123");
-                       // 保存用户走一个service 保证事务
-            if (userService.save(user)) {
+            // TODO 设置用户注册角色
+            if (userService.saveUser(user)) {
                 return HttpResult.success(user);
             }
             return HttpResult.failed(ResultMessage.SAVE_FAILED);
@@ -96,13 +104,14 @@ public class UserController {
 
 
     @PutMapping
-    public HttpResult<?> edit(@RequestBody User user) {
+    @ApiOperation("【编辑用户】")
+    public HttpResult<?> edit(@RequestBody UserVo user) {
         try {
             User userInDb= userService.getById(user.getId());
             if(userInDb==null) {
                 HttpResult.failed("不存在");
             }else {
-                if (userService.updateById(user)) {
+                if (userService.updateUserById(user)) {
                     return HttpResult.success(user);
                 }
                 return HttpResult.failed();
@@ -114,12 +123,9 @@ public class UserController {
         }
     }
 
-    /**
-     * 删除用户
-     */
-    //@RequiresRoles({"admin"})
     @DeleteMapping
-    public HttpResult<?> delete(@RequestParam(name="id",required=true) String id) {
+    @ApiOperation("【删除用户】")
+    public HttpResult<?> delete(@RequestParam(name="id") Long id) {
         try {
             if (userService.removeById(id)) {
                 return HttpResult.success();
@@ -131,11 +137,8 @@ public class UserController {
         }
     }
 
-    /**
-     * 批量删除用户
-     */
-    //@RequiresRoles({"admin"})
     @DeleteMapping("/deleteBatch")
+    @ApiOperation("【批量删除用户】")
     public HttpResult<?> deleteBatch(@RequestBody List<Long> ids) {
 
         try {
@@ -156,6 +159,7 @@ public class UserController {
      * @return
      */
     //@RequiresRoles({"admin"})
+    @ApiOperation("【冻结&解冻用户】")
     @PutMapping("/frozenBatch")
     public HttpResult<?> frozenBatch(@RequestBody List<Long> userIds) {
         try {
@@ -172,12 +176,14 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public HttpResult<?> queryById(@RequestParam(name = "id", required = true) String id) {
+    @ApiOperation("【获取用户详情】")
+    public HttpResult<?> queryById(@PathVariable(name = "id") Long id) {
         try {
             User user = userService.getById(id);
             if (user == null) {
                 return HttpResult.failed();
             } else {
+                //TODO 查询用户角色
                 return HttpResult.success(user);
             }
         } catch (Exception e) {
@@ -186,22 +192,5 @@ public class UserController {
         }
     }
 
-    /*@GetMapping(value = "/queryUserRole/{userid}")
-    public Result<List<String>> queryUserRole(@PathVariable(name = "userid") String userid) {
-
-    }*/
-
-
-
-    /**
-     * 修改密码
-     */
-    //@RequiresRoles({"admin"})
-    /*@RequestMapping(value = "/changePassword", method = RequestMethod.PUT)
-    public Result<?> changePassword(@RequestBody SysUser sysUser) {
-
-    }*/
-
-    //TODO 授权相关的角色给用户
 
 }
