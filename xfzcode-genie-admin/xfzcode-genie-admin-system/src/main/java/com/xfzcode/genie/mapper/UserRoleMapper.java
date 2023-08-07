@@ -1,8 +1,12 @@
 package com.xfzcode.genie.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.xfzcode.genie.dto.UserRoleDto;
 import com.xfzcode.genie.entity.UserRole;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 
 /**
@@ -12,5 +16,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserRoleMapper extends BaseMapper<UserRole> {
+
+    List<UserRoleDto> selectRolesByUserId(@Param("userIds") List<Long> userIds);
 
 }

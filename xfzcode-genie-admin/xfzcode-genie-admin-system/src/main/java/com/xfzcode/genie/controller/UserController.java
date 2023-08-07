@@ -164,7 +164,7 @@ public class UserController {
     public HttpResult<?> frozenBatch(@RequestBody List<Long> userIds) {
         try {
             UpdateWrapper<User> queryWrapper = new UpdateWrapper<>();
-            queryWrapper.set("enabled", 0).in("id", userIds);
+            queryWrapper.setSql("enable = !enable").in("id", userIds);
             if (userService.update(queryWrapper)) {
                 return HttpResult.success();
             }
@@ -183,8 +183,7 @@ public class UserController {
             if (user == null) {
                 return HttpResult.failed();
             } else {
-                //TODO 查询用户角色
-                return HttpResult.success(user);
+                return HttpResult.success(userService.getUserByDetail(id));
             }
         } catch (Exception e) {
             e.printStackTrace();
