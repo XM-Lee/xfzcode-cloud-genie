@@ -71,7 +71,6 @@ public class UserController {
         try {
             String password = user.getPassword();
             user.setPassword(password+"123");
-            // TODO 设置用户注册角色
             if (userService.saveUser(user)) {
                 return HttpResult.success(user);
             }

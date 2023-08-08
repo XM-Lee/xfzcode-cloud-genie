@@ -45,7 +45,7 @@
         <fastjson-version>2.0.32</fastjson-version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <redis-version>2.7.10</redis-version>
-
+        <sa-token-version>1.35.0.RC</sa-token-version>
         <xfzcode-genie-common.version>${project.version}</xfzcode-genie-common.version>
         <xfzcode-genie-base-core.version>${project.version}</xfzcode-genie-base-core.version>
 
@@ -171,6 +171,21 @@
                 <artifactId>spring-boot-starter-data-redis</artifactId>
                 <version>${redis-version}</version>
             </dependency>
+
+
+            <!-- Sa-Token 权限认证，在线文档：https://sa-token.cc -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot-starter</artifactId>
+                <version>${sa-token-version}</version>
+            </dependency>
+            <!-- Sa-Token 整合 Redis （使用 jackson 序列化方式） -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-redis-jackson</artifactId>
+                <version>${sa-token-version}</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>
