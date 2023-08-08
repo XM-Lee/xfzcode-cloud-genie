@@ -21,7 +21,7 @@ public class HttpResult<T> implements Serializable {
 
     }
 
-    public HttpResult(Integer code, String message, T data) {
+    private HttpResult(Integer code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;

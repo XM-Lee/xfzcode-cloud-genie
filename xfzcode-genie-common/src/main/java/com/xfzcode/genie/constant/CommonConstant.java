@@ -18,4 +18,5 @@ public interface CommonConstant {
      */
     Integer DEL_FLAG_0 = 0;
 
+   String BASE_CHECK_CODES = "zxcvbnmMNBVCXZasdfghjklLKJHGFDSAqwertyuiopPOIUYTREWQ1234567890";
 }

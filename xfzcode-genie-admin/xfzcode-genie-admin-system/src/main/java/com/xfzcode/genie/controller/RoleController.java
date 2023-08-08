@@ -28,7 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping(ApiVersion.V1_ROLE)
 @RequiredArgsConstructor
-@Api(value = "角色管理", tags = " 1-02角色管理相关接口-RoleController")
+@Api(value = "角色管理", tags = " 1-02.角色管理相关接口-RoleController")
 public class RoleController {
 
     @Autowired

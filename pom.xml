@@ -44,6 +44,7 @@
         <jackson-version>2.13.3</jackson-version>
         <fastjson-version>2.0.32</fastjson-version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
+        <redis-version>2.7.10</redis-version>
 
         <xfzcode-genie-common.version>${project.version}</xfzcode-genie-common.version>
         <xfzcode-genie-base-core.version>${project.version}</xfzcode-genie-base-core.version>
@@ -163,6 +164,14 @@
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
             </dependency>
+
+            <!--redis-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${redis-version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>
