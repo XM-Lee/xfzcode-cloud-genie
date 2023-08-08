@@ -18,6 +18,12 @@
         <module>xfzcode-genie-base-core</module>
     </modules>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.5.RELEASE</version>
+    </parent>
+
     <properties>
         <skipTests>true</skipTests>
         <java.version>1.8</java.version>
@@ -38,9 +44,9 @@
         <commons-pool2.version>2.4.3</commons-pool2.version>
         <jjwt.version>0.9.0</jjwt.version>
         <logstash-logback.version>5.3</logstash-logback.version>
-        <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
-        <spring-cloud-alibaba.version>2.2.9.RELEASE</spring-cloud-alibaba.version>
-
+        <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
+        <spring-cloud-alibaba.version>2.2.5.RELEASE</spring-cloud-alibaba.version>
+        <nacos-version>2.1.0.RELEASE</nacos-version>
         <jackson-version>2.13.3</jackson-version>
         <fastjson-version>2.0.32</fastjson-version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
@@ -48,17 +54,17 @@
         <sa-token-version>1.35.0.RC</sa-token-version>
         <xfzcode-genie-common.version>${project.version}</xfzcode-genie-common.version>
         <xfzcode-genie-base-core.version>${project.version}</xfzcode-genie-base-core.version>
-
     </properties>
+
     <dependencyManagement>
         <dependencies>
-            <dependency>
+           <!-- <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-parent</artifactId>
                 <version>2.3.12.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
+            </dependency>-->
             <!--Spring Cloud 相关依赖-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -78,7 +84,12 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-nacos-discovery</artifactId>
-                <version>2.1.1.RELEASE</version>
+                <version>${nacos-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                <version>${nacos-version}</version>
             </dependency>
             <!--通用模块-->
             <dependency>
@@ -185,8 +196,6 @@
                 <artifactId>sa-token-redis-jackson</artifactId>
                 <version>${sa-token-version}</version>
             </dependency>
-
-
         </dependencies>
     </dependencyManagement>
 </project>

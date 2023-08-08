@@ -30,7 +30,6 @@
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-redis-jackson</artifactId>
         </dependency>
-
     </dependencies>
 
 <build>
