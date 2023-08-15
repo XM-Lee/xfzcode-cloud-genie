@@ -12,12 +12,11 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
  * @Author: XMLee
- * @Date: 2023/8/8 11:27
+ * @Date: 2023/8/15 18:05
  * @Description:
  */
 @Configuration
 public class RedisConfig {
-
     @Bean
     @SuppressWarnings("all")
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
@@ -46,4 +45,5 @@ public class RedisConfig {
 
         return template;
     }
+
 }
