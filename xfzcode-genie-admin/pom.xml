@@ -19,6 +19,16 @@
         <dependency>
             <groupId>com.xfzcode</groupId>
             <artifactId>xfzcode-genie-base-core</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.lettuce</groupId>
+                    <artifactId>lettuce-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -14,12 +14,14 @@
 #    nacos:
 #      config:
 #        #配置中心服务地址
-#        #        server-addr: 10.17.0.198:8848,10.17.0.198:8858,10.17.0.198:8868
 #        server-addr: api.xfzcode.com:30158
 #        #配置中心文件类型
 #        file-extension: yml
 #        #配置中心编码
 #        encode: utf-8
+#      discovery:
+#        #注册中心地址
+#        server-addr: api.xfzcode.com:30158
 #mybatis-plus:
 #  configuration:
 #    #日志输出

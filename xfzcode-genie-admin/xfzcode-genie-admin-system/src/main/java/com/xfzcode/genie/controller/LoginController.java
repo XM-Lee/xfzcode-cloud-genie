@@ -85,7 +85,6 @@ public class LoginController {
         try {
             //生成验证码
             String code = RandomUtil.randomString(BASE_CHECK_CODES,4);
-            // 加入密钥作为混淆，避免简单的拼接，被外部利用，用户自定义该密钥即可
             String realKey = RandomUtil.randomString(32);
             redisService.set(realKey, code, 3 * 60);
 
