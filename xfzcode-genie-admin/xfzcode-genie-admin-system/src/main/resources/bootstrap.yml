@@ -16,22 +16,4 @@ spring:
         file-extension: yaml
         #配置中心编码
         encode: utf-8
-  redis:
-    timeout: 6000
-    password: xfzcode4redis
-    database: 0
-    cluster:
-      nodes:
-      - 47.101.151.24:1701
-      - 47.101.151.24:1702
-      - 47.101.151.24:1703
-      - 47.101.151.24:1704
-      - 47.101.151.24:1705
-      - 47.101.151.24:1706
-    jedis:
-      pool:
-        max-active: 200
-        max-idle: 1000
-        max-wait: -1s
-        min-idle: 5
 
