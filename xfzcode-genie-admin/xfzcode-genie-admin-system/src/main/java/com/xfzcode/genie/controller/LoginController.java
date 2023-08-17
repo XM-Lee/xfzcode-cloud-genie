@@ -63,6 +63,9 @@ public class LoginController {
             }
             // 使用方法
             User account = userService.getOne(new QueryWrapper<User>().eq("user_name", loginModel.getUsername()));
+            if (null == account) {
+                return HttpResult.failed(ResultMessage.LOGIN_ERROR);
+            }
             if (!BCrypt.checkpw(loginModel.getPassword(), account.getPassword())) {
                 return HttpResult.failed(ResultMessage.LOGIN_ERROR);
             }
