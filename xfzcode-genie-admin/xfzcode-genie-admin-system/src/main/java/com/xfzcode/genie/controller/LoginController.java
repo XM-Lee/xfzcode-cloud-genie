@@ -103,9 +103,42 @@ public class LoginController {
         }
     }
 
+    @GetMapping("/loginByPhone")
+    @ApiOperation("【手机号码登录】")
+    public HttpResult<?> loginByPhone(@RequestBody LoginModel loginModel) {
+        try {
+            String captcha = loginModel.getCaptcha();
+            if(null ==captcha){
+                return HttpResult.failed(ResultMessage.CODE_ERROR);
+            }
+            String codeInDb = (String) redisService.get(loginModel.getCheckKey());
+            if (null == codeInDb) {
+                return HttpResult.failed(ResultMessage.CODE_ERROR);
+            }
+            redisService.del(loginModel.getCheckKey());
+            if (!captcha.equalsIgnoreCase(codeInDb)) {
+                return HttpResult.failed(ResultMessage.CODE_ERROR);
+            }
+            // 使用方法
+            User account = userService.getOne(new QueryWrapper<User>().eq("user_name", loginModel.getUsername()));
+            if (null == account) {
+                return HttpResult.failed(ResultMessage.LOGIN_USER_ILLEGAL);
+            }
+            StpUtil.login(account.getId());
+            SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
+            LoginUserVo vo = new LoginUserVo();
+            BeanUtils.copyProperties(account, vo);
+            vo.setToken(tokenInfo.tokenValue);
+            return HttpResult.success(vo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return HttpResult.error(e.getMessage());
+        }
+    }
+
     @GetMapping("/gePhoneCode")
     @ApiOperation("【获取手机验证码】")
-    public HttpResult<?> getVerCode(@RequestParam String phone) {
+    public HttpResult<?> gePhoneCode(@RequestParam String phone) {
         try {
             String codeInCache = (String) redisService.get(phone);
             if (null != codeInCache) {
@@ -118,6 +151,7 @@ public class LoginController {
             return HttpResult.error(e.getMessage());
         }
     }
+
 
     @PostMapping("/register")
     @ApiOperation("【注册用户】")

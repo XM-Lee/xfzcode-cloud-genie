@@ -1,10 +1,10 @@
 server:
-  port: 18081
+  port: 18080
 spring:
   application:
-    name: genie-admin
+    name: genie-gateway
   profiles:
-    active: outNet
+    active: dev
   cloud:
     nacos:
       config:
@@ -14,4 +14,3 @@ spring:
         file-extension: yaml
         #配置中心编码
         encode: utf-8
-
