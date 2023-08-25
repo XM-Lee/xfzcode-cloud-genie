@@ -16,4 +16,6 @@ public interface ResultMessage {
     String LOGIN_EXPIRED = "登录已失效";
     String NO_TOKEN_ERROR = "未传入token";
     String NOT_PERMISSION_ERROR = "权限不足";
+    String NO_DATA_CHANGE = "沒有数据变更";
+
 }

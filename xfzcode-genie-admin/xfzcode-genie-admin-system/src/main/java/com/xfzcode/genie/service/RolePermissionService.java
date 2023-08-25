@@ -5,6 +5,8 @@ import com.xfzcode.genie.api.HttpResult;
 import com.xfzcode.genie.entity.RolePermission;
 import com.xfzcode.genie.vo.RolePermissionVo;
 
+import java.util.List;
+
 /**
  * @Author: XMLee
  * @Date: 2023/8/3 15:42
@@ -12,4 +14,8 @@ import com.xfzcode.genie.vo.RolePermissionVo;
  */
 public interface RolePermissionService extends IService<RolePermission> {
     HttpResult<?> saveRolePermission(RolePermissionVo rolePermissionVo);
+
+    HttpResult<?> queryRoleUser(Long roleId);
+
+    HttpResult<?> removeRoleUser(List<Long> roleIds);
 }

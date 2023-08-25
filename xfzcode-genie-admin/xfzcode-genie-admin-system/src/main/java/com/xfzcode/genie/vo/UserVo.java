@@ -19,7 +19,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("sys_users")
 @SuperBuilder
 @ApiModel(value="用户对象",description="用户相关")
 public class UserVo extends BaseEntity implements Serializable {

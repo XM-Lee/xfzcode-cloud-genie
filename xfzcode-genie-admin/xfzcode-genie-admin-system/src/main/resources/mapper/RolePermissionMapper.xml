@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xfzcode.genie.mapper.RolePermissionMapper">
+    <select id="queryRoleUser" resultType="com.xfzcode.genie.entity.User">
+        SELECT
+            sys_users.*
+        FROM
+            sys_users_roles
+                JOIN sys_users ON sys_users_roles.user_id = sys_users.id
+        WHERE sys_users_roles.role_id = #{roleId}
+    </select>
+</mapper>

@@ -1,8 +1,13 @@
 package com.xfzcode.genie.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.xfzcode.genie.api.HttpResult;
 import com.xfzcode.genie.entity.RolePermission;
+import com.xfzcode.genie.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 
 /**
@@ -12,5 +17,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface RolePermissionMapper extends BaseMapper<RolePermission> {
+
+    List<User> queryRoleUser(@Param("roleId") Long roleId);
 
 }

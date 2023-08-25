@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xfzcode.genie.api.HttpResult;
 import com.xfzcode.genie.api.ResultCode;
+import com.xfzcode.genie.api.ResultMessage;
 import com.xfzcode.genie.constant.ApiVersion;
 import com.xfzcode.genie.entity.Role;
 import com.xfzcode.genie.service.RolePermissionService;
@@ -15,6 +16,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +30,7 @@ import java.util.List;
 @RestController
 @RequestMapping(ApiVersion.V1_ROLE)
 @RequiredArgsConstructor
-@Api(value = "角色管理", tags = " 1-02.角色管理相关接口-RoleController")
+@Api(value = "角色管理", tags = " 01-02.角色管理相关接口-RoleController")
 public class RoleController {
 
     @Autowired
@@ -123,6 +125,18 @@ public class RoleController {
     }
 
 
+    @GetMapping("/listAll")
+    @ApiOperation("【查询所有角色·】")
+    public HttpResult<?> listAll() {
+        try{
+            return HttpResult.success(roleService.list());
+        }catch (Exception e) {
+            e.printStackTrace();
+            return HttpResult.error(e);
+        }
+    }
+
+
     @GetMapping("/checkRoleCode")
     @ApiOperation("【校验角色编码是否唯一】")
     @ApiImplicitParams({
@@ -146,6 +160,38 @@ public class RoleController {
     public HttpResult<?> saveRolePermission(@RequestBody RolePermissionVo rolePermissionVo) {
         try{
             return rolePermissionService.saveRolePermission(rolePermissionVo);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return HttpResult.error(e);
+        }
+    }
+
+    @GetMapping("/queryRoleUser")
+    @ApiOperation("【获取角色绑定的用户】")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleId", value = "角色Id",dataType = "Long")
+    })
+    public HttpResult<?> queryRoleUser(@RequestParam("roleId") Long roleId) {
+        try{
+            return rolePermissionService.queryRoleUser(roleId);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return HttpResult.error(e);
+        }
+    }
+
+    @Delete("/removeRoleUser")
+    @ApiOperation("【取消角色关联的用户-可批量】")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleId", value = "角色Id",dataType = "Long")
+    })
+    public HttpResult<?> removeRoleUser(@RequestBody List<Long> roleIds) {
+        try{
+            if (null != roleIds && roleIds.size() > 0) {
+                return rolePermissionService.removeRoleUser(roleIds);
+            }else {
+                return HttpResult.success(ResultMessage.NO_DATA_CHANGE);
+            }
         }catch (Exception e) {
             e.printStackTrace();
             return HttpResult.error(e);

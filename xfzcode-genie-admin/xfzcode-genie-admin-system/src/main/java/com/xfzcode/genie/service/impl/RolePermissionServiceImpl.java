@@ -34,4 +34,15 @@ public class RolePermissionServiceImpl extends ServiceImpl<RolePermissionMapper,
         return HttpResult.failed(ResultCode.SAVE_FAILED);
     }
 
+    @Override
+    public HttpResult<?> queryRoleUser(Long roleId) {
+        return HttpResult.success(this.baseMapper.queryRoleUser(roleId));
+    }
+
+    @Override
+    @Transactional
+    public HttpResult<?> removeRoleUser(List<Long> roleIds) {
+        return HttpResult.success(this.baseMapper.deleteBatchIds(roleIds));
+    }
+
 }

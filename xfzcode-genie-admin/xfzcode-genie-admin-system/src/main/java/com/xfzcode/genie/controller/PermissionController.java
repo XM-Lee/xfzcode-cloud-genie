@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 @RequestMapping(ApiVersion.V1_PERMISSION)
 @RequiredArgsConstructor
 @Slf4j
-@Api(value = "Permission 权限管理",tags = "1-03.权限管理相关接口-PermissionController")
+@Api(value = "Permission 权限管理",tags = "01-03.权限管理相关接口-PermissionController")
 public class PermissionController {
 
 

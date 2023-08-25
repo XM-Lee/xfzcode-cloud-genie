@@ -34,7 +34,7 @@ import static com.xfzcode.genie.constant.CommonConstant.BASE_CHECK_CODES;
 @RestController
 @RequestMapping(ApiVersion.V1_LOGIN)
 @Slf4j
-@Api(value = "登录相关API", tags = " 2-01.登录相关API-LoginController")
+@Api(value = "登录相关API", tags = " 02-01.登录相关API-LoginController")
 public class LoginController {
 
     @Autowired

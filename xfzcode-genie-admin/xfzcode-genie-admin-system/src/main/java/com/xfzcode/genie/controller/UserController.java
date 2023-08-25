@@ -24,7 +24,7 @@ import java.util.*;
 @RequestMapping(ApiVersion.V1_USER)
 //@RolesAllowed(Roles.USER_ADMIN)
 @Slf4j
-@Api(value = "User 用户管理",tags = "1-01.用户管理相关接口-UserController")
+@Api(value = "User 用户管理",tags = "01-01.用户管理相关接口-UserController")
 public class UserController {
 
 
