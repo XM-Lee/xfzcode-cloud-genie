@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xfzcode.genie.entity.Permission;
 import com.xfzcode.genie.entity.RolePermission;
-import com.xfzcode.genie.entity.UserRole;
 import com.xfzcode.genie.mapper.PermissionMapper;
 import com.xfzcode.genie.mapper.RolePermissionMapper;
 import com.xfzcode.genie.service.PermissionService;

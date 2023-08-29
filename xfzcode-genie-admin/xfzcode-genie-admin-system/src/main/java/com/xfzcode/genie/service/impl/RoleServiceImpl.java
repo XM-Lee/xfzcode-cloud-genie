@@ -7,6 +7,7 @@ import com.xfzcode.genie.entity.UserRole;
 import com.xfzcode.genie.mapper.RoleMapper;
 import com.xfzcode.genie.mapper.UserRoleMapper;
 import com.xfzcode.genie.service.RoleService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import java.util.List;
  * @Description:
  */
 @Service
+@Slf4j
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
 
     @Autowired

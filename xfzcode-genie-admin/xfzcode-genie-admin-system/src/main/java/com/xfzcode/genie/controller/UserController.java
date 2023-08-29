@@ -16,15 +16,15 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.*;
 
+import java.util.*;
 
 
 @RestController
 @RequestMapping(ApiVersion.V1_USER)
 //@RolesAllowed(Roles.USER_ADMIN)
 @Slf4j
-@Api(value = "User 用户管理",tags = "01-01.用户管理相关接口-UserController")
+@Api(value = "User 用户管理", tags = "01-01.用户管理相关接口-UserController")
 public class UserController {
 
 
@@ -33,6 +33,7 @@ public class UserController {
 
     /**
      * 获取用户列表数据
+     *
      * @param user
      * @param pageSize
      * @param pageSize
@@ -43,8 +44,8 @@ public class UserController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Permission", value = "权限")
     })
-    public HttpResult<?> queryPageList(User user, @RequestParam(name="currentPage", defaultValue="1") Integer currentPage,
-                                                @RequestParam(name="pageSize", defaultValue="10") Integer pageSize) {
+    public HttpResult<?> queryPageList(User user, @RequestParam(name = "currentPage", defaultValue = "1") Integer currentPage,
+                                       @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
         try {
 
             QueryWrapper<User> wrapper = new QueryWrapper<>();
@@ -70,7 +71,7 @@ public class UserController {
     public HttpResult<?> add(@RequestBody UserVo user) {
         try {
             String password = user.getPassword();
-            user.setPassword(password+"123");
+            user.setPassword(password + "123");
             if (userService.saveUser(user)) {
                 return HttpResult.success(user);
             }
@@ -86,17 +87,13 @@ public class UserController {
     @ApiOperation("【编辑用户】")
     public HttpResult<?> edit(@RequestBody UserVo user) {
         try {
-            User userInDb= userService.getById(user.getId());
-            if(userInDb==null) {
-                HttpResult.failed("不存在");
-            }else {
-                if (userService.updateUserById(user)) {
-                    return HttpResult.success(user);
-                }
-                return HttpResult.failed();
+            User userInDb = userService.getById(user.getId());
+            if (userInDb == null) {
+                return  HttpResult.failed("不存在");
             }
-            return HttpResult.failed();
+            return userService.updateUserById(user) ? HttpResult.success(user) : HttpResult.failed();
         } catch (Exception e) {
+
             log.error(e.getMessage(), e);
             return HttpResult.error(e);
         }
@@ -104,7 +101,7 @@ public class UserController {
 
     @DeleteMapping
     @ApiOperation("【删除用户】")
-    public HttpResult<?> delete(@RequestParam(name="id") Long id) {
+    public HttpResult<?> delete(@RequestParam(name = "id") Long id) {
         try {
             if (userService.removeById(id)) {
                 return HttpResult.success();
@@ -121,10 +118,7 @@ public class UserController {
     public HttpResult<?> deleteBatch(@RequestBody List<Long> ids) {
 
         try {
-            if (userService.removeBatchByIds(ids)) {
-                return HttpResult.success();
-            }
-            return HttpResult.failed();
+            return userService.removeBatchByIds(ids) ? HttpResult.success() : HttpResult.failed();
         } catch (Exception e) {
             e.printStackTrace();
             return HttpResult.error(e);
@@ -134,6 +128,7 @@ public class UserController {
 
     /**
      * 冻结&解冻用户
+     *
      * @param userIds
      * @return
      */
