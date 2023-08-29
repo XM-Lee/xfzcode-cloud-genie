@@ -51,6 +51,8 @@
         <fastjson-version>2.0.32</fastjson-version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <redis-version>2.7.10</redis-version>
+        <validation-api-version>2.0.1.Final</validation-api-version>
+        <velocity-version>2.3</velocity-version>
         <sa-token-version>1.35.0.RC</sa-token-version>
         <xfzcode-genie-common.version>${project.version}</xfzcode-genie-common.version>
         <xfzcode-genie-base-core.version>${project.version}</xfzcode-genie-base-core.version>
@@ -65,6 +67,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>2.3.5.RELEASE</version>
+            </dependency>
             <!--Spring Cloud 相关依赖-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -80,6 +87,11 @@
                 <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>${velocity-version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
@@ -138,7 +150,11 @@
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-connector.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validation-api-version}</version>
+            </dependency>
             <!--JWT(Json Web Token)登录支持-->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
