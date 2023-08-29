@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS `${tableName}`;
+CREATE TABLE `${tableName}` (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+#foreach ($column in $columns)
+    `$column.columnName` $column.columnType DEFAULT NULL COMMENT '$column.columnComment',
+#end
+    `create_time` datetime NOT NULL,
+    `update_time` datetime NOT NULL
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;

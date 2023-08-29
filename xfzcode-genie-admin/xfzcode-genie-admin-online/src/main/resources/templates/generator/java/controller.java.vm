@@ -1,0 +1,111 @@
+package ${packageName}.controller;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xfzcode.genie.api.HttpResult;
+import com.xfzcode.genie.api.ResultCode;
+import com.xfzcode.genie.api.ResultMessage;
+import com.xfzcode.genie.constant.ApiVersion;
+import com.xfzcode.genie.entity.${ClassName};
+import com.xfzcode.genie.service.${ClassName}Service;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Delete;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * @Author: ${author}
+ * @Date: ${datetime}
+ * @Description:${functionName}Controller
+ */
+@Slf4j
+@RestController
+@RequestMapping("/${moduleName}/${businessName}")
+@Api(value = "${functionName} ${functionName}管理", tags = "相关接口- ${ClassName}Controller")
+public class ${ClassName}Controller {
+
+
+    @Autowired
+    private ${ClassName}Service ${className}Service;
+
+
+    @PostMapping
+    @ApiOperation("【新增】")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "XXX", value = "XXX")
+    })
+    public HttpResult<?> save(@RequestBody ${ClassName} ${className}) {
+        try {
+            return HttpResult.success(${className});
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e.getMessage(), e);
+            return HttpResult.error(e);
+        }
+    }
+
+    @PutMapping
+    @ApiOperation("【编辑】")
+    public HttpResult<?> edit(@RequestBody ${ClassName} ${className}) {
+        try {
+            ${ClassName} ${className}InDb = ${className}Service.getById(${className}.getId());
+            if (${className}InDb == null) {
+                return HttpResult.failed("不存在");
+            }
+            return ${className}Service.updateById(user) ? HttpResult.success(user) : HttpResult.failed();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e.getMessage(), e);
+            return HttpResult.error(e);
+        }
+    }
+
+    @DeleteMapping
+    @ApiOperation("【删除】")
+    public HttpResult<?> delete(@RequestParam(name = "id") Long id) {
+        try {
+            return ${className}Service.removeById(id) ? HttpResult.success() : HttpResult.failed();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+            return HttpResult.error(e);
+        }
+    }
+
+    @DeleteMapping("/deleteBatch")
+    @ApiOperation("【批量删除】")
+    public HttpResult<?> deleteBatch(@RequestBody List<Long> ids) {
+        try {
+            return ${className}Service.removeBatchByIds(ids) ? HttpResult.success() : HttpResult.failed();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+            return HttpResult.error(e);
+        }
+    }
+
+    @GetMapping
+    @ApiOperation("【获取列表】")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "XX", value = "")
+    })
+    public HttpResult<?> queryPageList(@RequestParam(name = "currentPage", defaultValue = "1") Integer currentPage,
+                                       @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
+        try {
+
+            QueryWrapper<${ClassName}> wrapper = new QueryWrapper<>();
+            return HttpResult.success(${className}Service.page(new Page<>(currentPage, pageSize), wrapper));
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+            return HttpResult.error(e.getMessage());
+        }
+    }
+}
