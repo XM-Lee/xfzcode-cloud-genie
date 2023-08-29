@@ -1,0 +1,16 @@
+server:
+  port: 18082
+spring:
+  application:
+    name: genie-online
+  profiles:
+    active: outNet
+  cloud:
+    nacos:
+      config:
+        #配置中心服务地址
+        server-addr: api.xfzcode.com:30158
+        #配置中心文件类型后缀
+        file-extension: yaml
+        #配置中心编码
+        encode: utf-8

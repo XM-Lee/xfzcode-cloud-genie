@@ -1,11 +1,12 @@
 package com.xfzcode.genie.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xfzcode.genie.constants.GenConstants;
+import com.xfzcode.genie.constant.GenConstants;
 import com.xfzcode.genie.dto.GenTableDTO;
 import com.xfzcode.genie.entity.GenTableColumn;
 import org.apache.velocity.VelocityContext;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -55,7 +56,7 @@ public class VelocityUtils {
         velocityContext.put("basePackage", getPackagePrefix(packageName));
         velocityContext.put("packageName", packageName);
         velocityContext.put("author", genTable.getFunctionAuthor());
-        velocityContext.put("datetime", new Date());
+        velocityContext.put("datetime", new SimpleDateFormat("yyyy/MM/dd HH:ss:mm").format(new Date()));
         velocityContext.put("pkColumn", genTable.getPkColumn());
         velocityContext.put("importList", getImportList(genTable));
         velocityContext.put("permissionPrefix", getPermissionPrefix(moduleName, businessName));

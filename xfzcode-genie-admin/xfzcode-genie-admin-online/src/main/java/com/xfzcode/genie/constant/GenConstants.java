@@ -1,4 +1,4 @@
-package com.xfzcode.genie.constants;
+package com.xfzcode.genie.constant;
 
 /**
  * @Author: XMLee

@@ -1,6 +1,6 @@
 package com.xfzcode.genie.dto;
 
-import com.xfzcode.genie.constants.GenConstants;
+import com.xfzcode.genie.constant.GenConstants;
 import com.xfzcode.genie.entity.GenTableColumn;
 import com.xfzcode.genie.utils.StringUtils;
 import io.swagger.annotations.ApiModel;

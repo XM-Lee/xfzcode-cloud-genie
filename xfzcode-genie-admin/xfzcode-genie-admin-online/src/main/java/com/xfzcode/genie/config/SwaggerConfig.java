@@ -1,8 +1,5 @@
 package com.xfzcode.genie.config;
 
-import io.swagger.models.Info;
-import io.swagger.models.SecurityRequirement;
-import lombok.Data;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -13,12 +10,9 @@ import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @Author: XMLee
@@ -39,14 +33,14 @@ public class SwaggerConfig {
                 .build()
                 .securitySchemes(securitySchemes())
                 .securityContexts(securityContexts())
-                .groupName("admin")
+                .groupName("online")
                 .enable(true);
     }
 
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
-                .title("genie-admin核心服务")
-                .description("genie-admin核心服务")
+                .title("genie-online核心服务")
+                .description("genie-online核心服务")
                 .contact(new Contact("XMLee", "https://www.xfzcode.com", "473338378@qq.com"))
                 .version("1.0.0")
                 .build();

@@ -1,0 +1,35 @@
+#server:
+#  port: 18082
+#  servlet:
+#    context-path: /online
+#spring:
+#  application:
+#    name: genie-online
+#  datasource:
+#    url: jdbc:mysql://47.101.151.24:13306/xfzode-genie-admin?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: password4xfzcodegenie
+#  cloud:
+#    nacos:
+#      discovery:
+#        #注册中心地址
+#        server-addr: api.xfzcode.com:30158
+#  redis:
+#    database: 0
+#    password: xfzcode4redis
+#    cluster:
+#      nodes:
+#        - 192.168.33.10:7000
+#        - 192.168.33.10:7001
+#        - 192.168.33.10:7002
+#        - 192.168.33.10:7003
+#        - 192.168.33.10:7004
+#        - 192.168.33.10:7005
+#    timeout: 6000
+#    jedis:
+#      pool:
+#        max-active: 200
+#        max-idle: 1000
+#        max-wait: -1s
+#        min-idle: 5
