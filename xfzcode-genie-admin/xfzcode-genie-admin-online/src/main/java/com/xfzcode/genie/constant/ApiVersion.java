@@ -23,7 +23,7 @@ public class ApiVersion {
         ANT_WHITE_LIST.add("/swagger.*");
         ANT_WHITE_LIST.add("/v3/**");
 
-//        ANT_WHITE_LIST.add(V1_GenCode+"/**");
+        ANT_WHITE_LIST.add(V1_GenCode+"/**");
 
     }
 }

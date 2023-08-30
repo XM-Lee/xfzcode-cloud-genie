@@ -16,10 +16,12 @@ public class ApiVersion {
     public static final String V1_USER = V1 + "/user";
     public static final String V1_PERMISSION = V1 +"permission";
     public static final String V1_ROLE = V1 +"/role";
-    public static final String V1_LOGIN = V1;
+    public static final String V1_LOGIN = V1+"/login";
 
     // 对于白名单中的URL，不检查JWT和鉴权
     public static final List<String> ANT_WHITE_LIST = new ArrayList<>();
+    public static final String V1_DEPART = V1 + "/depart";
+
 
     static {
         /*swagger ui*/
@@ -29,6 +31,7 @@ public class ApiVersion {
         ANT_WHITE_LIST.add("/v3/**");
 
         ANT_WHITE_LIST.add(V1_LOGIN+"/**");
+        ANT_WHITE_LIST.add(V1_DEPART+"/**");
 
     }
 }

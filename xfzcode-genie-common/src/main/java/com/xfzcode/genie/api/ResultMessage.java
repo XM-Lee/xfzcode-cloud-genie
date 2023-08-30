@@ -17,5 +17,6 @@ public interface ResultMessage {
     String NO_TOKEN_ERROR = "未传入token";
     String NOT_PERMISSION_ERROR = "权限不足";
     String NO_DATA_CHANGE = "沒有数据变更";
+    String TABLE_NAME_IS_EXIST= "表明已存在";
 
 }
