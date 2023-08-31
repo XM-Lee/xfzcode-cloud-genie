@@ -12,4 +12,6 @@ import com.xfzcode.genie.vo.GenTableAndColumnVo;
  */
 public interface GenTableService extends IService<GenTable> {
     HttpResult<?> insertGenTableAndColumn(GenTableAndColumnVo genTableAndColumnVo);
+
+    HttpResult<?> updateGenTable(GenTableAndColumnVo genTableAndColumnVo);
 }

@@ -1,22 +1,10 @@
 package com.xfzcode.genie.exception;
 
-import cn.dev33.satoken.exception.NotLoginException;
-import cn.dev33.satoken.exception.NotPermissionException;
-import cn.dev33.satoken.exception.NotRoleException;
-import com.google.common.collect.Lists;
 import com.xfzcode.genie.api.HttpResult;
 import com.xfzcode.genie.api.ResultCode;
-import com.xfzcode.genie.api.ResultMessage;
-import kotlin.Result;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.CollectionUtils;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @Author: XMLee
@@ -26,34 +14,51 @@ import java.util.List;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
     /**
-     * 未登录
+     * 处理空指针的异常
      *
-     * @param e
-     * @return
+     * @param e 参数
+     * @return 返回异常信息
      */
-    @ExceptionHandler(value = NotLoginException.class)
-    public HttpResult<ServiceError> notLoginExceptionHandler(NotLoginException e) {
+    @ExceptionHandler(value = NullPointerException.class)
+    public HttpResult<ServiceError> exceptionHandler(NullPointerException e) {
         errorFixedPosition(e);
         log.error("_> 错误原因：");
         log.error("_> {}", e.getMessage());
         log.error("=============================错误打印完毕=============================");
-        return HttpResult.failed(ResultCode.NO_HAVE_LOGIN_USER);
+        return HttpResult.failed(ResultCode.SYS_ERROR);
     }
 
     /**
-     * 角色异常
+     * 处理实体不存在异常
      *
-     * @param e
-     * @return
+     * @param e 参数
+     * @return 返回异常信息
      */
-    @ExceptionHandler(value = {NotRoleException.class, NotPermissionException.class})
-    public HttpResult<ServiceError> notRoleExceptionHandler(Exception e) {
+    @ExceptionHandler(value = EntityNotExistException.class)
+    public HttpResult<ServiceError> exceptionHandler(EntityNotExistException e) {
         errorFixedPosition(e);
         log.error("_> 错误原因：");
         log.error("_> {}", e.getMessage());
         log.error("=============================错误打印完毕=============================");
-        return HttpResult.failed(ResultCode.NOT_PERMISSION_ERROR);
+        return HttpResult.failed(ResultCode.SYS_ERROR);
+    }
+
+
+    /**
+     * 处理其他异常
+     *
+     * @param e 参数
+     * @return 返回异常信息
+     */
+    @ExceptionHandler(value = Exception.class)
+    public HttpResult<ServiceError> exceptionHandler(Exception e) {
+        errorFixedPosition(e);
+        log.error("_> 错误原因：");
+        log.error("_> {}", e.getMessage());
+        log.error("=============================错误打印完毕=============================");
+        return HttpResult.failed(ResultCode.SYS_ERROR);
     }
 
     /**
