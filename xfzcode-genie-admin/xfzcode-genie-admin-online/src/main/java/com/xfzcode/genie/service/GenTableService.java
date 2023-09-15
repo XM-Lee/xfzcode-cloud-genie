@@ -14,4 +14,6 @@ public interface GenTableService extends IService<GenTable> {
     HttpResult<?> insertGenTableAndColumn(GenTableAndColumnVo genTableAndColumnVo);
 
     HttpResult<?> updateGenTable(GenTableAndColumnVo genTableAndColumnVo);
+
+    byte[] genCodeDownload(String tableName);
 }

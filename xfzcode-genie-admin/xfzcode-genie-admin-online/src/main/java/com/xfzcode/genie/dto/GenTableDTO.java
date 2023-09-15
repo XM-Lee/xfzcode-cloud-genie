@@ -152,6 +152,7 @@ public class GenTableDTO implements Serializable {
      */
     private String parentMenuName;
 
+    private String remark;
     public boolean isSuperColumn(String javaField) {
         return isSuperColumn(this.tplCategory, javaField);
     }

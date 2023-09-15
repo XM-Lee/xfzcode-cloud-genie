@@ -16,12 +16,16 @@ import com.xfzcode.genie.vo.GenTableAndColumnVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +50,8 @@ public class GenCodeController {
 
 
     @PostMapping("/addGenCode")
-    public HttpResult<?> save(@RequestBody GenTableAndColumnVo genTableAndColumnVo) {
+    @ApiOperation("【添加代码生成表】")
+    public HttpResult<?> addGenCode(@RequestBody GenTableAndColumnVo genTableAndColumnVo) {
         try {
             if (null != genTableService.getOne(new QueryWrapper<GenTable>().eq("table_name", genTableAndColumnVo.getGenTable().getTableName()))) {
                 return HttpResult.failed(ResultMessage.TABLE_NAME_IS_EXIST);
@@ -59,6 +64,7 @@ public class GenCodeController {
     }
 
     @DeleteMapping("/deleteGenTable/{tableId}")
+    @ApiOperation("【删除代码生成表格】")
     public HttpResult<?> deleteGenTable(@PathVariable("tableId") Long tableId) {
         try {
             if (genTableService.removeById(tableId)) {
@@ -77,6 +83,7 @@ public class GenCodeController {
 
 
     @PutMapping("/updateGenTable")
+    @ApiOperation("【更新代码生成表格】")
     public HttpResult<?> updateGenTable(@RequestBody GenTableAndColumnVo genTableAndColumnVo) {
         try {
             if (null == genTableAndColumnVo.getGenTable().getTableId()) {
@@ -96,6 +103,7 @@ public class GenCodeController {
             @ApiImplicitParam(name = "pageSize", value = "一页数量", required = true, defaultValue = "10"),
             @ApiImplicitParam(name = "tableName", value = "表名")
     })
+    @ApiOperation("【获取在线表单】")
     public HttpResult<?> genTableList(@RequestParam(name = "currentPage", defaultValue = "1") Integer currentPage,
                                       @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
                                       @RequestParam(name = "tableName", required = false) String tableName) {
@@ -125,18 +133,32 @@ public class GenCodeController {
         }
     }
 
-    @GetMapping("/genCode")
+    @GetMapping("/genCodeDownload")
     @ApiImplicitParams({
 
     })
-    public HttpResult<?> genTableList() {
+    @ApiOperation("【生成代码-单表】")
+    public void genCodeDownload(HttpServletResponse response,String tableName) {
         try {
-
-            return HttpResult.success();
+            byte[] data = genTableService.genCodeDownload(tableName);
+            if (null != data) {
+                genCode(response, data);
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return HttpResult.error(e);
         }
     }
 
+    /**
+     * 生成zip文件
+     */
+    private void genCode(HttpServletResponse response, byte[] data) throws IOException {
+        response.reset();
+        response.setHeader("Content-Disposition", "attachment; filename=\"xfzcode-genie-code.zip\"");
+        response.addHeader("Content-Length", "" + data.length);
+        response.setContentType("application/octet-stream; charset=UTF-8");
+        IOUtils.write(data, response.getOutputStream());
+    }
 }
+
+
